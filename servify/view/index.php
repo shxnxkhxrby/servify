@@ -18,116 +18,58 @@ $is_logged_in = isset($_SESSION['user_id']);
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
-/* Modal */
-.modal {display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px;}
-.modal-content {background:#fff;padding:30px;width:50%;text-align:center;border-radius:8px;max-height:80vh;overflow-y:auto;box-shadow:0 4px 10px rgba(0,0,0,.2);}
-.modal-content h3{margin:20px 0 10px;} .modal-content ul{margin:10px 0;padding-left:20px;text-align:left;}
+/* --- Modal --- */ 
+.modal{display:flex;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px;}
+.modal-content{background:#fff;padding:30px;width:50%;text-align:center;border-radius:8px;max-height:80vh;overflow-y:auto;box-shadow:0 4px 10px rgba(0,0,0,.2);}
+.modal-content h3{margin:20px 0 10px;}
+.modal-content ul{margin:10px 0;padding-left:20px;text-align:left;}
 .hidden{display:none;}
 .btn{padding:10px 15px;margin:15px 10px 0;border:none;cursor:pointer;border-radius:5px;}
-.accept-btn{background:green;color:#fff;} .decline-btn{background:red;color:#fff;}
+.accept-btn{background:green;color:#fff;}
+.decline-btn{background:red;color:#fff;}
 .button.active{background:#0d6efd;color:#fff;}
-
-/* Profile & filters */
+/* --- Profile & Filters --- */ 
 .profile-img{height:150px;width:auto;border-radius:50%;object-fit:cover;}
 .filters-section{display:flex;justify-content:flex-end;gap:10px;margin-right:210px;align-items:center;}
-
-/* Categories */
+/* --- Categories --- */ 
 .categories-wrapper{margin:20px auto;max-width:1650px;padding:0 10px;overflow-x:hidden;}
 .buttons-container{width:100%;overflow-x:visible;}
-.categories-wrapper .buttons{display:grid;gap:16px;justify-content:center;align-items:start;width:100%;box-sizing:border-box;}
-.categories-wrapper .buttons .button{width:100%;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-radius:10px;border:1px solid #e3e3e3;background:#fff;padding:10px;gap:6px;cursor:pointer;transition:all .15s ease;color:#333;}
-.categories-wrapper .buttons .button i{font-size:28px;color:inherit;}
-.categories-wrapper .buttons .button span{display:block;font-size:13px;margin-top:4px;text-align:center;word-break:break-word;}
-.categories-wrapper .buttons .button:hover,
-.categories-wrapper .buttons .button.active{background:#0d6efd;color:#fff;border-color:#0d6efd;transform:scale(1.03);box-shadow:0 4px 10px rgba(0,0,0,.12);}
-
-/* Pagination */
-#workers-pagination{display:flex;justify-content:center;gap:6px;margin-top:18px;padding-left:0;list-style:none;}
+.categories-wrapper .buttons{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;justify-items:center;align-items:start;width:100%;box-sizing:border-box;}
+.categories-wrapper .buttons .button{width:100%;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-radius:10px;border:1px solid #e3e3e3;background:#fff;padding:10px;gap:6px;cursor:pointer;transition:.15s;color:#333;}
+.categories-wrapper .buttons .button i{font-size:28px;}
+.categories-wrapper .buttons .button span{display:block;font-size:13px;margin-top:4px;word-break:break-word;}
+.categories-wrapper .buttons .button:hover,.categories-wrapper .buttons .button.active{background:#0d6efd;color:#fff;border-color:#0d6efd;transform:scale(1.03);box-shadow:0 4px 10px rgba(0,0,0,.12);}
+.categories-wrapper .buttons {display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; justify-content: center; align-items: start; width: 100%; box-sizing: border-box;}
+/* --- Pagination --- */ 
+#workers-pagination{display:flex;justify-content:center;gap:6px;margin-top:18px;list-style:none;padding-left:0;}
 #workers-pagination .page-item{margin:0 4px;}
 #workers-pagination .page-link{cursor:pointer;}
-
-/* Responsive */
-@media(max-width:1200px){.categories-wrapper .buttons{grid-template-columns:repeat(4,minmax(120px,1fr));}}
-@media(max-width:900px){.categories-wrapper .buttons{grid-template-columns:repeat(3,minmax(120px,1fr));}}
-@media(max-width:600px){.categories-wrapper .buttons{grid-template-columns:repeat(2,minmax(120px,1fr));}.categories-wrapper .buttons .button{height:110px;}}
+/* --- How It Works --- */ 
+.step-card{border-radius:15px;transition:.3s;}
+.step-card:hover{transform:translateY(-8px);box-shadow:0 8px 18px rgba(0,0,0,.15);}
+#howItWorks .icon i{transition:.4s;}
+#howItWorks .step-card:hover .icon i{transform:scale(1.2) rotate(10deg);}
+/* --- Announcement Image --- */ 
+.announcement-image{display:block;width:100%;max-width:940px;height:320px;object-fit:cover;object-position:center;margin:0 auto 20px;border:none;border-radius:8px;transition:.4s;}
+.announcement-image:hover{transform:scale(1.02);}
+.card{border-radius:12px;}
+@media(max-width:1024px){.announcement-image{height:260px;}}
+@media(max-width:768px){.announcement-image{height:200px;}}
+@media(max-width:480px){.announcement-image{height:150px;}}
+/* --- Category Arrows --- */ 
+.nav-arrow{background:#fff;border:2px solid #0d6efd;color:#0d6efd;font-size:1.6rem;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.3s;box-shadow:0 3px 8px rgba(0,0,0,.15);}
+.nav-arrow:hover{background:#0d6efd;color:#fff;transform:scale(1.1);box-shadow:0 5px 12px rgba(13,110,253,.4);}
+.nav-arrow:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+@media(max-width:768px){.nav-arrow{font-size:1.3rem;width:45px;height:45px;}}
+/* --- Responsive Grid --- */ 
+@media(max-width:1200px){.categories-wrapper .buttons{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:900px){.categories-wrapper .buttons{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:600px){.categories-wrapper .buttons{grid-template-columns:repeat(2,1fr);}.categories-wrapper .buttons .button{height:110px;}}
 @media(max-width:400px){.categories-wrapper .buttons{grid-template-columns:1fr;}.categories-wrapper .buttons .button{height:96px;}}
-.step-card {
-  border-radius: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.step-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-}
-
-#howItWorks .icon i {
-  transition: transform 0.4s ease;
-}
-
-#howItWorks .step-card:hover .icon i {
-  transform: scale(1.2) rotate(10deg);
-}
-.announcement-image {
-  display: block;
-  width: 100%;
-  max-width: 940px;  /* aligns visually with the main layout width */
-  height: auto;
-  aspect-ratio: 16 / 9; /* consistent rectangular shape */
-  object-fit: cover;
-  object-position: center;
-  margin: 0 auto 20px auto; /* centers + adds margin below */
-  border: none; /* removes the dividing line */
-  border-radius: 8px; /* smooth corners */
-  transition: transform 0.4s ease;
-}
-
-.announcement-image:hover {
-  transform: scale(1.02);
-}
-
-@media (max-width: 768px) {
-  .announcement-image {
-    max-width: 100%;
-    aspect-ratio: 4 / 3;
-  }
-}
 </style>
-<style>
-/* image styling: centered, fixed responsive height, covers area */
-.announcement-image {
-  display: block;
-  width: 100%;
-  max-width: 940px;   /* keeps it proportionate relative to the card */
-  height: 320px;      /* desktop image height */
-  object-fit: cover;  /* crop while keeping aspect ratio */
-  object-position: center;
-  margin: 0 auto;
-  transition: transform 0.45s ease;
-}
 
-/* hover zoom */
-.card .announcement-image:hover {
-  transform: scale(1.03);
-}
-
-/* smaller image heights for smaller devices */
-@media (max-width: 1024px) {
-  .announcement-image { height: 260px; }
-}
-@media (max-width: 768px) {
-  .announcement-image { height: 200px; }
-}
-@media (max-width: 480px) {
-  .announcement-image { height: 150px; }
-}
-
-/* optional: make the announcement card feel separated from other sections */
-.card {
-  border-radius: 12px;
-}
-</style>
 </head>
 <body>
   <!-- NAVBAR -->
@@ -165,14 +107,12 @@ $is_logged_in = isset($_SESSION['user_id']);
                 </span>
               </a>
             </li>
-
             <!-- Profile -->
             <li class="nav-item">
               <a class="nav-link" href="../view/profile.php">
                 <i class="bi bi-person-circle"></i> Profile
               </a>
             </li>
-
             <!-- Logout -->
             <li class="nav-item">
               <a class="nav-link" href="../controls/logout.php">
@@ -240,7 +180,7 @@ $is_logged_in = isset($_SESSION['user_id']);
 </div>
 <div class="categories-wrapper d-flex align-items-center justify-content-center">
   <!-- Left arrow -->
-  <button id="prev-btn" class="nav-arrow btn btn-outline-primary me-3">⬅️</button>
+  <button id="prev-btn" class="nav-arrow"><i class="bi bi-chevron-left"></i></button>
   <!-- Categories grid -->
   <div class="buttons-container flex-grow-1">
     <div class="buttons" id="category-buttons">
@@ -248,9 +188,8 @@ $is_logged_in = isset($_SESSION['user_id']);
     </div>
   </div>
   <!-- Right arrow -->
-  <button id="next-btn" class="nav-arrow btn btn-outline-primary ms-3">➡️</button>
+  <button id="next-btn" class="nav-arrow"><i class="bi bi-chevron-right"></i></button>
 </div>
-
 
 <!-- Laborer's Section -->
 <div class="container text-center mt-5">
@@ -272,11 +211,9 @@ $is_logged_in = isset($_SESSION['user_id']);
   <ul id="workers-pagination" class="pagination" style="display:none;"></ul>
 </nav>
 
-
 <!-- Barangay Announcements Display -->
 <div class="bg-white p-4 rounded-2xl mb-10">
-  <h3 class="text-center text-success fw-bold mb-4">📢 Barangay Announcements</h3>
-
+  <h3 class="text-center text-success fw-bold mb-4">📢 Barangay Announcements 📢</h3>
   <?php
   $ann_query = "SELECT * FROM barangay_announcements ORDER BY date_posted DESC";
   $ann_result = $conn->query($ann_query);
@@ -313,8 +250,6 @@ $is_logged_in = isset($_SESSION['user_id']);
   endif;
   ?>
 </div>
-
-
 
 <!-- HOW IT WORKS SECTION -->
 <section id="howItWorks">
@@ -379,7 +314,6 @@ $is_logged_in = isset($_SESSION['user_id']);
       for various services. We provide the digital space, while Barangay Staff and 
       Administrators help oversee the smooth operation of the platform.
     </p>
-
     <h3>Terms of Use</h3>
     <p>By using Servify, you acknowledge and agree to the following:</p>
     <ul>
@@ -389,14 +323,12 @@ $is_logged_in = isset($_SESSION['user_id']);
       <li>Users are responsible for verifying the credibility of workers before engaging in any service.</li>
       <li>Servify is not liable for damages, losses, or issues arising from transactions made outside the platform.</li>
     </ul>
-
     <h3>Privacy Policy</h3>
     <p>
       Servify collects only the necessary information to operate the platform, such as 
       account details and contact information. Your data will not be shared without consent, 
       except when required by law or for community safety.
     </p>
-
     <!-- Checkbox Agreement -->
     <div style="margin-top: 20px; text-align: left;">
       <input type="checkbox" id="acceptCheckbox">
@@ -437,7 +369,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
 // ================== CATEGORIES (Dynamic + Arrows) ==================
 document.addEventListener("DOMContentLoaded", function () {
   const categoriesContainer = document.getElementById("category-buttons");
@@ -445,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const nextBtn = document.getElementById("next-btn");
 
   let currentCategoryPage = 1;
-  const categoriesPerPage = 5;
+  const categoriesPerPage = 6;
   let totalCategoryPages = 1;
 
 function loadCategories(page = 1) {
@@ -476,7 +407,6 @@ function loadCategories(page = 1) {
     })
     .catch((err) => console.error("Error loading categories:", err));
 }
-
 
   function updateCategoryArrows() {
     prevBtn.disabled = currentCategoryPage <= 1;
@@ -646,9 +576,10 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchLaborers(null, 1);
 });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<?php include '../view/footer.php'; ?>
+<div style="margin-top:100px;">
+  <?php include '../view/footer.php'; ?>
+</div>
 <!-- AOS Animation Library -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -667,6 +598,5 @@ document.addEventListener("DOMContentLoaded", function () {
   animation: fadeIn 0.8s ease forwards;
 }
 </style>
-
 </body>
 </html>
