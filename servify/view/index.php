@@ -585,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init({
-    duration: 1000,
+    duration: 1500,
     once: true
   });
 </script>
@@ -600,3 +600,4 @@ document.addEventListener("DOMContentLoaded", function () {
 </style>
 </body>
 </html>
+
