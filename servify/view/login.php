@@ -77,7 +77,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <button type="submit" class="btn btn-primary w-100">LOGIN</button>
     </form>
-    <p class="small-text mt-3">Don't have an account? <a href="#">Sign up</a></p>
+    <p class="small-text mt-3">Don't have an account? <a href="../view/signup.php">Sign up</a></p>
 </div>
 
         
@@ -97,3 +97,4 @@ if (isset($_SESSION['user_id'])) {
 </html>
 </body>
 </html>
+
