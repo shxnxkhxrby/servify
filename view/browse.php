@@ -155,6 +155,38 @@ function removeFilter($key) {
     $params['page'] = 1;
     return '?' . http_build_query($params);
 }
+
+
+// Check login status
+$is_logged_in = isset($_SESSION['user_id']);
+$current_user_id = $is_logged_in ? intval($_SESSION['user_id']) : null;
+
+// Fetch logged-in user's name and profile picture
+$current_user_name = '';
+$profile_picture = 'uploads/profile_pics/default.jpg'; // Default fallback
+
+if ($is_logged_in && $current_user_id) {
+    $stmt = $conn->prepare("SELECT firstname, middlename, lastname, profile_picture FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $current_user_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($res && $res->num_rows > 0) {
+        $user_row = $res->fetch_assoc();
+
+        // Build full name
+        $current_user_name = $user_row['firstname'];
+        if (!empty($user_row['middlename'])) {
+            $current_user_name .= ' ' . $user_row['middlename'];
+        }
+        $current_user_name .= ' ' . $user_row['lastname'];
+
+        // Use profile picture if available
+        if (!empty($user_row['profile_picture'])) {
+            $profile_picture = $user_row['profile_picture'];
+        }
+    }
+    $stmt->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -843,3 +875,4 @@ if ($result->num_rows > 0) {
 
 </body>
 </html>
+
