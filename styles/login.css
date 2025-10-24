@@ -126,16 +126,14 @@ header {width: 100%;height: 4rem;background-image: linear-gradient(to left, #027
     display: none;
   }
 }
-
-/* Bottom nav bar */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white; /* Changed from teal */
+  background-color: white;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-around; /* evenly spaced items */
   align-items: center;
   padding: 8px 0;
   z-index: 999;
@@ -145,14 +143,18 @@ header {width: 100%;height: 4rem;background-image: linear-gradient(to left, #027
 
 .bottom-nav .nav-item {
   text-align: center;
-  flex: 1;
   cursor: pointer;
-  color: #333; /* Default icon/text color */
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 60px; /* ensures tap target size */
 }
 
 .bottom-nav .nav-item i {
   font-size: 20px;
-  display: block;
   color: inherit;
 }
 
@@ -161,9 +163,15 @@ header {width: 100%;height: 4rem;background-image: linear-gradient(to left, #027
   color: inherit;
 }
 
+.bottom-nav .nav-item.active {
+  color: teal;
+  font-weight: bold;
+}
+
+
 /* Active icon styling */
 .bottom-nav .nav-item.active {
-  color: teal; /* Servify blue */
+  color: teal; 
   font-weight: bold;
 }
 
