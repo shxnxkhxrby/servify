@@ -61,13 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $conn->close();
 }
+
+$is_logged_in = isset($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../styles/signup.css">
+<link rel="stylesheet" href="../styles/user_details.css?v=<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -75,21 +77,107 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
-  <div class="container">
-    <a class="navbar-brand" href="../view/index.php">Servify</a>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="../view/signup.php">Sign Up</a></li>
-        <li class="nav-item"><a class="nav-link">|</a></li>
-        <li class="nav-item"><a class="nav-link" href="../view/login.php">Login</a></li>
-      </ul>
+
+<!-- NAVIGATION BAR -->
+<header>
+  <div class="header-content">
+    <div class="brand"><a href="../view/index.php">Servify</a></div>
+    <div class="menu-container">
+      <nav class="wrapper-2" id="menu">
+        <p><a href="../view/browse.php">Services</a></p>
+        <!-- <p><a href="#">Become a laborer</a></p> -->
+        <p class="divider">|</p>
+
+        <?php if ($is_logged_in): ?>
+          <p class="profile-wrapper">
+            <span class="profile-icon" onclick="toggleProfileMenu()">
+              <img src="../<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="icon">
+            </span>
+            <div id="profile-menu" class="profile-menu d-none">
+              <a href="../view/profile.php" class="user-info-link">
+                <div class="user-info">
+                  <span><?php echo htmlspecialchars($current_user_name); ?></span>
+                  <i class="bi bi-pencil-square"></i>
+                </div>
+              </a>
+              <a href="../view/messages.php"><i class="bi bi-chat-dots"></i> Inbox</a>
+              <a href="#"><i class="bi bi-bell"></i> Notifications</a>
+              <a href="#"><i class="bi bi-grid"></i> Dashboard</a>
+              <a href="../controls/logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+          </p>
+        <?php else: ?>
+          <p class="login"><a href="../view/login.php"><i class="bi bi-box-arrow-in-right"></i> Login / Signup</a></p>
+        <?php endif; ?>
+      </nav>
     </div>
   </div>
-</nav>
+</header>
 
-<div class="signup-container text-center mt-5 pt-5">
+
+<!-- Bottom Navigation (Mobile/Tablet Only) -->
+<div class="bottom-nav mobile-only">
+  <a href="../view/index.php">
+    <div class="nav-item active" onclick="goToHome()">
+      <i class="bi bi-house"></i>
+      <span>Home</span>
+    </div>
+  </a>
+  <a href="../view/browse.php">
+    <div class="nav-item" onclick="goToServices()">
+      <i class="bi bi-search"></i>
+      <span>Services</span>
+    </div>
+  </a>
+  
+  <div class="nav-item" onclick="toggleMoreMenu()">
+    <i class="bi bi-three-dots"></i>
+    <span>More</span>
+  </div>
+</div>
+
+
+<!-- Fullscreen More Menu -->
+<div id="more-menu" class="fullscreen-menu d-none">
+  <div class="menu-panel">
+    <div class="menu-header">
+      <h1 class="menu-title">SERVIFY</h1>
+      <span class="close-btn" onclick="toggleMoreMenu()">✕</span>
+    </div>
+
+    <?php if ($is_logged_in): ?>
+      <!-- Logged-in User Menu -->
+      <div class="user-section">
+        <div class="profile-info" onclick="toggleProfileMenu()">
+          <a href="../view/profile.php" class="profile-link">
+            <img src="../<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="icon">
+            <h3 class="user-name"><?php echo htmlspecialchars($current_user_name); ?></h3>
+          </a>
+        </div>
+        <i class="bi bi-pencil-square edit-icon"></i>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="menu-options">
+        <a href="../view/messages.php"><i class="bi bi-chat-dots"></i> Inbox</a>
+        <a href="#"><i class="bi bi-bell"></i> Notifications</a>
+        <a href="#"><i class="bi bi-grid"></i> Dashboard</a>
+        <a href="../controls/logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
+      </div>
+
+    <?php else: ?>
+      <!-- Non-User Menu -->
+      <div class="menu-options">
+        <a href="../view/become-laborer.php"><i class="bi bi-person-workspace"></i> Become a laborer</a>
+        <a href="../view/login.php"><i class="bi bi-person-circle"></i> Signin / Signup</a>
+      </div>
+    <?php endif; ?>
+  </div>
+</div>
+
+
+<div class="signup-container text-center mt-md-5 pt-md-5 mt-4 pt-4">
 <h3>Complete Your Profile</h3>
 <form action="" method="POST" class="mt-3">
 
@@ -129,5 +217,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <button type="submit" class="btn btn-primary w-100">Submit</button>
 </form> 
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('active');
+  }
+</script>
+
+<script>
+  // Toggle profile dropdown
+  function toggleProfileMenu() {
+    const menu = document.getElementById('profile-menu');
+    menu.classList.toggle('d-none');
+  }
+
+  // Toggle fullscreen "More" menu
+  function toggleMoreMenu() {
+    const menu = document.getElementById('more-menu');
+    menu.classList.toggle('d-none');
+  }
+
+  // Navigation actions
+  function goToHome() {
+    window.location.href = '../view/home.php';
+  }
+
+  function goToServices() {
+    window.location.href = '../view/services.php';
+  }
+</script>
 </body>
 </html>
