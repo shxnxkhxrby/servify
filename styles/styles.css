@@ -1,0 +1,181 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    border-bottom: 2px solid black;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+}
+
+.search-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-container input {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-container button {
+    border: 1px solid black;
+    background: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-container button:hover {
+    background: black;
+    color: white;
+}
+
+.profile-icon {
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #f8f8f8, #e0e0e0);
+}
+
+.hero-section h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Job Categories */
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.category-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    height: 150px;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 15px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    background: white;
+    transition: 0.3s;
+}
+
+.category-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.category-button small {
+    color: gray;
+}
+/* Navbar */
+.navbar {
+    border-bottom: 2px solid black;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+}
+
+.search-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-container input {
+    width: 50%;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.search-container button {
+    border: 1px solid black;
+    background: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.profile-icon {
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid black;
+}
+
+th {
+    background: #eee;
+    font-weight: bold;
+}
+
+.action-buttons button {
+    border: 1px solid black;
+    background: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.action-buttons button:hover {
+    background-color: black;
+    color: white;
+}
+
